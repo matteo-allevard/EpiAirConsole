@@ -1,8 +1,3 @@
-<!--
-  PR title: follow Conventional Commits, e.g. "feat(console): show waiting room with player avatars".
-  It becomes the commit message after squash and merge.
--->
-
 ## Description
 
 <!-- What does this PR do, and why? -->
@@ -23,19 +18,6 @@
 ## Linked Issue
 
 Closes #<!-- issue number -->
-
-<!-- Backlog ID of the story, e.g. E3-01. Use "Refs #<number>" instead of "Closes" if this PR does not finish the issue. -->
-
-<!-- For a feature, copy the user story from the issue: -->
-<!--
-**User Story:**
-> As a ..., I want ..., so that ...
--->
-
-<!-- For a bug fix, explain the root cause: -->
-<!--
-**Root Cause:**
--->
 
 ## Changes
 
