@@ -1,0 +1,7 @@
+{
+  "name": "@byoc/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "main": "rooms.ts",
+  "types": "rooms.ts"
+}
