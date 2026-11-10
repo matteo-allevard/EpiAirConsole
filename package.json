@@ -1,0 +1,15 @@
+{
+  "name": "byoc",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @byoc/server",
+    "dev:console": "npm run dev -w @byoc/console",
+    "test": "npm test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present"
+  }
+}
