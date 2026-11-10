@@ -239,6 +239,7 @@ We use AI tools and declare them here, as our AI usage policy requires. Each tea
 | Tool | Used for | Parts of the project |
 | --- | --- | --- |
 | Claude (Anthropic) | Drafting documentation, planning the product backlog | README, CONTRIBUTING, product roadmap |
+| DeepSeek — co-creation | Co-designing the ECHO game concept: gameplay loop, asymmetric roles (Prey/Predator), audio signature system, QTE gyro mechanic, horror design pillars, SDK requirements, acceptance criteria, backlog decomposition | `docs/game-dev/echo.md` |
 | *to be completed* | | |
 
 Update this table in the same pull request as the work it describes.

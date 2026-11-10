@@ -23,5 +23,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
   - ADR 0001: TypeScript monorepo stack
   - ADR 0002: games isolated in sandboxed iframes
   - ADR 0003: English for code and documentation
+- ECHO action game concept (E8-01): asymmetric horror, pure-sound gameplay, both roles fully playable without sight (`docs/game-dev/echo.md`)
 
 [Unreleased]: https://github.com/matteo-allevard/EpiAirConsole/commits/main
