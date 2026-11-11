@@ -20,9 +20,37 @@
     "dev:console": "npm run dev -w @byoc/console",
     "dev:controller": "npm run dev -w @byoc/controller",
     "test": "npm test --workspaces --if-present && node --test \"scripts/**/*.test.mjs\"",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspaces --if-present",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "prepare": "husky || true"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.17.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.9.6",
+    "typescript-eslint": "^8.70.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mjs,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml,yaml,css,html}": [
+      "prettier --write"
+    ]
   }
 }
