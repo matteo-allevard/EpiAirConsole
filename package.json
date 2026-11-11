@@ -2,14 +2,27 @@
   "name": "byoc",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
+    "check": "node scripts/check-env.mjs",
+    "predev": "npm run check",
+    "dev": "concurrently --names server,console,controller --prefix-colors blue,magenta,green --kill-others-on-fail \"npm:dev:server\" \"npm:dev:console\" \"npm:dev:controller\"",
+    "predev:host": "npm run check",
+    "dev:host": "concurrently --names server,console,controller --prefix-colors blue,magenta,green --kill-others-on-fail \"npm:dev:server\" \"npm run dev -w @byoc/console -- --host\" \"npm run dev -w @byoc/controller -- --host\"",
     "dev:server": "npm run dev -w @byoc/server",
     "dev:console": "npm run dev -w @byoc/console",
-    "test": "npm test --workspaces --if-present",
+    "dev:controller": "npm run dev -w @byoc/controller",
+    "test": "npm test --workspaces --if-present && node --test \"scripts/**/*.test.mjs\"",
     "build": "npm run build --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }
