@@ -182,10 +182,13 @@ Not working? See [Troubleshooting](docs/user/troubleshooting.md).
 | `npm test` | Every unit and integration test |
 | `npm run test:e2e` | End-to-end tests: one console and several emulated mobile controllers |
 | `npm run test:load` | Load tests with simulated players (bots) |
-| `npm run lint` | Linter and formatter checks |
+| `npm run test:coverage` | Unit and integration tests with coverage thresholds |
+| `npm run lint` | ESLint (code quality and accessibility rules) |
+| `npm run format:check` | Prettier formatting check (`npm run format` fixes it) |
+| `npm run typecheck` | TypeScript type check of every workspace |
 | `npm test -w <workspace>` | Tests of a single workspace, e.g. `npm test -w apps/server` |
 
-Every pull request runs lint, tests, end-to-end tests and the build on GitHub Actions. A pull request cannot be merged while the pipeline fails.
+Every pull request runs lint, formatting, type checks, tests with coverage and the build on GitHub Actions (end-to-end tests join with E13-02). See [CI/CD pipeline](docs/technical/ci-cd.md). A pull request cannot be merged while the pipeline fails.
 
 ## Project structure
 
@@ -238,7 +241,7 @@ We use AI tools and declare them here, as our AI usage policy requires. Each tea
 
 | Tool | Used for | Parts of the project |
 | --- | --- | --- |
-| Claude (Anthropic) | Drafting documentation, planning the product backlog, single-command start | README, CONTRIBUTING, product roadmap |
+| Claude (Anthropic) | Drafting documentation, planning the product backlog, project tooling | README, CONTRIBUTING, product roadmap |
 | *to be completed* | | |
 
 Update this table in the same pull request as the work it describes.
