@@ -9,9 +9,7 @@ export function RoomQRCode({ joinPath }: { joinPath: string }) {
       <div style={{ background: "#fff", padding: 16, display: "inline-block" }}>
         <QRCode value={url} size={256} />
       </div>
-      <p style={{ fontSize: 12, marginTop: 8, wordBreak: "break-all" }}>
-        {url}
-      </p>
+      <p style={{ fontSize: 12, marginTop: 8, wordBreak: "break-all" }}>{url}</p>
     </div>
   );
 }

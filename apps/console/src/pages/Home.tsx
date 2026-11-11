@@ -25,7 +25,11 @@ export function Home() {
     return (
       <main style={{ padding: 40, textAlign: "center" }}>
         <h1>NeonCast Console</h1>
-        <button onClick={handleCreate} disabled={loading} style={{ padding: "12px 32px", fontSize: 18 }}>
+        <button
+          onClick={handleCreate}
+          disabled={loading}
+          style={{ padding: "12px 32px", fontSize: 18 }}
+        >
           {loading ? "Creating…" : "Create a room"}
         </button>
         {error && <p style={{ color: "red" }}>{error}</p>}
