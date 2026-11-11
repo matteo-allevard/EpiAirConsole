@@ -1,0 +1,19 @@
+# Development image: runs the server, the console and the controller together.
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Install dependencies first to benefit from the Docker layer cache.
+COPY package.json package-lock.json ./
+COPY apps/server/package.json apps/server/
+COPY apps/console/package.json apps/console/
+COPY apps/controller/package.json apps/controller/
+COPY packages/protocol/package.json packages/protocol/
+RUN npm ci
+
+COPY . .
+
+EXPOSE 3000 5173 5174
+
+# --host makes the Vite dev servers reachable from outside the container.
+CMD ["npm", "run", "dev:host"]
