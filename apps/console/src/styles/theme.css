@@ -1,0 +1,131 @@
+/* BYOC — design tokens from the brand charte.
+   Sources: Charte_graphique.pdf, sections 02/03/05/06/07/08. */
+
+:root {
+  --nuit: #1B1530;
+  --nuit-2: #2A2148;
+  --nuit-3: #3A2F5E;
+  --brume: #F5F1FF;
+  --brume-2: #A89FC4;
+  --soleil: #FFD23F;
+  --lilas: #B9A3F0;
+  --braise: #FF8A5B;
+
+  --papier: #FBF9FF;
+  --encre: #1B1530;
+
+  --succes: #3DDC97;
+  --erreur: #FF6B7A;
+  --info: #7CC4FF;
+
+  --font-title: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-button: 12px;
+  --radius-card: 20px;
+
+  --size-title: clamp(40px, 5vw, 64px);
+  --size-subtitle: clamp(24px, 3vw, 36px);
+  --size-body: clamp(18px, 1.6vw, 24px);
+  --size-code: clamp(64px, 9vw, 96px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--nuit);
+  color: var(--brume);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: var(--size-title);
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: var(--size-subtitle);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--lilas);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 3px solid var(--soleil);
+  outline-offset: 3px;
+  border-radius: var(--radius-button);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 36px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--size-body);
+  color: var(--nuit);
+  background: var(--soleil);
+  border: none;
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: filter 120ms ease, transform 120ms ease;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.card {
+  background: var(--nuit-2);
+  border-radius: var(--radius-card);
+  padding: 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

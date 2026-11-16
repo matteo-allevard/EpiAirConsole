@@ -1,12 +1,30 @@
 export function RoomCode({ code }: { code: string }) {
   return (
-    <div style={{ textAlign: "center", margin: "24px 0" }}>
-      <div style={{ fontSize: 14, letterSpacing: 4, opacity: 0.6 }}>
-        ROOM CODE
-      </div>
-      <div style={{ fontSize: 72, fontWeight: 900, letterSpacing: 16 }}>
+    <div style={{ textAlign: "center" }}>
+      <p
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "var(--size-subtitle)",
+          fontWeight: 500,
+          color: "var(--lilas)",
+          marginBottom: 8,
+        }}
+      >
+        Room code
+      </p>
+      <p
+        aria-label={`Room code: ${code.split("").join(" ")}`}
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontWeight: 500,
+          fontSize: "var(--size-code)",
+          letterSpacing: "0.2em",
+          color: "var(--soleil)",
+          lineHeight: 1,
+        }}
+      >
         {code}
-      </div>
+      </p>
     </div>
   );
 }
