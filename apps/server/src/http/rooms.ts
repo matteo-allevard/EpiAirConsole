@@ -14,11 +14,5 @@ export function roomsRouter(manager: RoomManager): Router {
     };
     res.status(201).json(response);
   });
-
-  // GET /api/rooms → list active rooms (for debugging / tests)
-  router.get("/", (_req, res) => {
-    res.json({ rooms: manager.list().map((r) => ({ code: r.code })) });
-  });
-
   return router;
 }

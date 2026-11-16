@@ -26,3 +26,4 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - ECHO action game concept (E8-01): asymmetric horror, pure-sound gameplay, both roles fully playable without sight (`docs/game-dev/echo.md`)
 
 [Unreleased]: https://github.com/matteo-allevard/EpiAirConsole/commits/main
+- Room creation flow (E3-01): the host opens the console, clicks "Create a room", and gets a short non-guessable code plus a QR code. The server supports multiple rooms in parallel with unique 4-character codes.
