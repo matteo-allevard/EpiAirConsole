@@ -6,4 +6,6 @@ Only use assets under a licence that allows our use (for example CC0, CC BY, OFL
 
 | Asset | Used in | Author | Licence | Source |
 | --- | --- | --- | --- | --- |
-| *none yet* | | | | |
+| Bricolage Grotesque (font) | Titles and logo | Mathieu Triay | SIL Open Font License 1.1 | https://fonts.google.com/specimen/Bricolage+Grotesque |
+| Atkinson Hyperlegible (font) | Body text and interface | Braille Institute of America | SIL Open Font License 1.1 | https://fonts.google.com/specimen/Atkinson+Hyperlegible |
+| JetBrains Mono (font) | Room codes and developer mode | JetBrains | SIL Open Font License 1.1 | https://fonts.google.com/specimen/JetBrains+Mono |
