@@ -1,30 +1,7 @@
-/* BYOC — design tokens from the brand charte.
-   Sources: Charte_graphique.pdf, sections 02/03/05/06/07/08. */
+/* Console layout: text sizes for the TV screen.
+   Colours, fonts and radii come from @byoc/ui (tokens.css, imported in main.tsx). */
 
 :root {
-  --nuit: #1b1530;
-  --nuit-2: #2a2148;
-  --nuit-3: #3a2f5e;
-  --brume: #f5f1ff;
-  --brume-2: #a89fc4;
-  --soleil: #ffd23f;
-  --lilas: #b9a3f0;
-  --braise: #ff8a5b;
-
-  --papier: #fbf9ff;
-  --encre: #1b1530;
-
-  --succes: #3ddc97;
-  --erreur: #ff6b7a;
-  --info: #7cc4ff;
-
-  --font-title: "Bricolage Grotesque", system-ui, sans-serif;
-  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-
-  --radius-button: 12px;
-  --radius-card: 20px;
-
   --size-title: clamp(40px, 5vw, 64px);
   --size-subtitle: clamp(24px, 3vw, 36px);
   --size-body: clamp(18px, 1.6vw, 24px);
@@ -45,9 +22,9 @@ body,
 
 body {
   margin: 0;
-  background: var(--nuit);
-  color: var(--brume);
-  font-family: var(--font-body);
+  background: var(--byoc-night);
+  color: var(--byoc-mist);
+  font-family: var(--byoc-font-text);
   font-size: var(--size-body);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -55,7 +32,7 @@ body {
 }
 
 h1 {
-  font-family: var(--font-title);
+  font-family: var(--byoc-font-display);
   font-weight: 800;
   font-size: var(--size-title);
   line-height: 1.1;
@@ -64,7 +41,7 @@ h1 {
 }
 
 h2 {
-  font-family: var(--font-title);
+  font-family: var(--byoc-font-display);
   font-weight: 500;
   font-size: var(--size-subtitle);
   margin: 0;
@@ -75,7 +52,7 @@ p {
 }
 
 a {
-  color: var(--lilas);
+  color: var(--byoc-lilac);
   text-decoration: none;
 }
 a:hover {
@@ -83,9 +60,9 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 3px solid var(--soleil);
+  outline: 3px solid var(--byoc-sun);
   outline-offset: 3px;
-  border-radius: var(--radius-button);
+  border-radius: var(--byoc-radius-button);
 }
 
 .btn-primary {
@@ -94,13 +71,13 @@ a:hover {
   justify-content: center;
   gap: 12px;
   padding: 18px 36px;
-  font-family: var(--font-body);
+  font-family: var(--byoc-font-text);
   font-weight: 700;
   font-size: var(--size-body);
-  color: var(--nuit);
-  background: var(--soleil);
+  color: var(--byoc-night);
+  background: var(--byoc-sun);
   border: none;
-  border-radius: var(--radius-button);
+  border-radius: var(--byoc-radius-button);
   cursor: pointer;
   transition:
     filter 120ms ease,
@@ -118,8 +95,8 @@ a:hover {
 }
 
 .card {
-  background: var(--nuit-2);
-  border-radius: var(--radius-card);
+  background: var(--byoc-night-2);
+  border-radius: var(--byoc-radius-card);
   padding: 32px;
 }
 
