@@ -2,21 +2,21 @@
    Sources: Charte_graphique.pdf, sections 02/03/05/06/07/08. */
 
 :root {
-  --nuit: #1B1530;
-  --nuit-2: #2A2148;
-  --nuit-3: #3A2F5E;
-  --brume: #F5F1FF;
-  --brume-2: #A89FC4;
-  --soleil: #FFD23F;
-  --lilas: #B9A3F0;
-  --braise: #FF8A5B;
+  --nuit: #1b1530;
+  --nuit-2: #2a2148;
+  --nuit-3: #3a2f5e;
+  --brume: #f5f1ff;
+  --brume-2: #a89fc4;
+  --soleil: #ffd23f;
+  --lilas: #b9a3f0;
+  --braise: #ff8a5b;
 
-  --papier: #FBF9FF;
-  --encre: #1B1530;
+  --papier: #fbf9ff;
+  --encre: #1b1530;
 
-  --succes: #3DDC97;
-  --erreur: #FF6B7A;
-  --info: #7CC4FF;
+  --succes: #3ddc97;
+  --erreur: #ff6b7a;
+  --info: #7cc4ff;
 
   --font-title: "Bricolage Grotesque", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
@@ -102,7 +102,9 @@ a:hover {
   border: none;
   border-radius: var(--radius-button);
   cursor: pointer;
-  transition: filter 120ms ease, transform 120ms ease;
+  transition:
+    filter 120ms ease,
+    transform 120ms ease;
 }
 .btn-primary:hover:not(:disabled) {
   filter: brightness(1.05);

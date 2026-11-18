@@ -1,8 +1,7 @@
 import QRCode from "react-qr-code";
 
 export function RoomQRCode({ joinPath }: { joinPath: string }) {
-  const controllerBase =
-    import.meta.env.VITE_CONTROLLER_URL ?? "http://localhost:5174";
+  const controllerBase = import.meta.env.VITE_CONTROLLER_URL ?? "http://localhost:5174";
   const url = `${controllerBase}${joinPath}`;
 
   return (
@@ -15,13 +14,7 @@ export function RoomQRCode({ joinPath }: { joinPath: string }) {
           borderRadius: "var(--radius-card)",
         }}
       >
-        <QRCode
-          value={url}
-          size={256}
-          fgColor="var(--encre)"
-          bgColor="var(--papier)"
-          level="M"
-        />
+        <QRCode value={url} size={256} fgColor="var(--encre)" bgColor="var(--papier)" level="M" />
       </div>
       <p
         style={{
