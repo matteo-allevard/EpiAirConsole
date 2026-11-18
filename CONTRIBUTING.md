@@ -155,6 +155,7 @@ Formatting and linting are automatic: ESLint and Prettier run on staged files be
 - Code, comments, identifiers and logs are in English.
 - Prefer small, named functions over long ones and clear names over comments.
 - Never import a platform internal from a game: **games use the public SDK only**.
+- Brand colours, fonts, motion, sounds and loaders live in `@byoc/ui` (`packages/ui`). Never redefine them in an app.
 - Error messages and development logs must be understandable without reading the code.
 - Remove dead code instead of commenting it out: Git keeps the history.
 

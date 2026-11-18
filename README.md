@@ -241,12 +241,9 @@ We use AI tools and declare them here, as our AI usage policy requires. Each tea
 
 | Tool | Used for | Parts of the project |
 | --- | --- | --- |
-<<<<<<< HEAD
-| Claude (Anthropic) | Drafting documentation, planning the product backlog | README, CONTRIBUTING, product roadmap |
-| DeepSeek — co-creation | Co-designing the ECHO game concept: gameplay loop, asymmetric roles (Prey/Predator), audio signature system, QTE gyro mechanic, horror design pillars, SDK requirements, acceptance criteria, backlog decomposition | `docs/game-dev/echo.md` |
-=======
 | Claude (Anthropic) | Drafting documentation, planning the product backlog, project tooling | README, CONTRIBUTING, product roadmap |
->>>>>>> 8155fcf (ci(E1-03-05): add linting, formatting, commit hooks and CI pipeline)
+| DeepSeek — co-creation | Co-designing the ECHO game concept: gameplay loop, asymmetric roles (Prey/Predator), audio signature system, QTE gyro mechanic, horror design pillars, SDK requirements, acceptance criteria, backlog decomposition | `docs/game-dev/echo.md` |
+| Claude (Anthropic) | Visual and sound identity: logo, colour palette, style and identity guides, synthesized interface sounds and jingle, logo intro animation, loaders, logo component and their tests | `docs/brand/`, `packages/ui/`, `apps/console/src/components/Logo.tsx` |
 | *to be completed* | | |
 
 Update this table in the same pull request as the work it describes.
