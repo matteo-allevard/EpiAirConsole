@@ -166,7 +166,7 @@ Every environment variable is documented in [`.env.example`](.env.example).
 1. Connect your computer and your phone to the **same Wi-Fi network**.
 2. Start the project and make the dev servers reachable on your network:
    ```bash
-   npm run dev -- --host
+   npm run dev:host
    ```
 3. Find your computer's local IP address (for example `192.168.1.42`).
 4. Open the console at `http://<your-ip>:5173`, then scan the QR code with your phone.
