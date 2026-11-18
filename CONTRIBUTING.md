@@ -95,11 +95,12 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/). The `com
 ```
 
 - **Types:** `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `style`, `build`, `ci`, `chore`
-- **Scopes** match our domain labels: `server`, `console`, `controller`, `sdk`, `protocol`, `game-action`, `game-party`, `game-turn`, `accounts`, `docs`, `ci`
+- **Scope** (optional): the backlog ID of the story, e.g. `E3-01`, or a domain label: `server`, `console`, `controller`, `sdk`, `protocol`, `game-action`, `game-party`, `game-turn`, `accounts`, `docs`, `ci`
 
 Examples:
 
 ```
+feat(E3-01): create rooms with short code and QR display
 feat(server): close idle rooms after a configurable timeout
 fix(controller): restore player slot after the phone wakes up
 docs(sdk): add private message example to the reference

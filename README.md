@@ -166,7 +166,7 @@ Every environment variable is documented in [`.env.example`](.env.example).
 1. Connect your computer and your phone to the **same Wi-Fi network**.
 2. Start the project and make the dev servers reachable on your network:
    ```bash
-   npm run dev -- --host
+   npm run dev:host
    ```
 3. Find your computer's local IP address (for example `192.168.1.42`).
 4. Open the console at `http://<your-ip>:5173`, then scan the QR code with your phone.
@@ -182,10 +182,13 @@ Not working? See [Troubleshooting](docs/user/troubleshooting.md).
 | `npm test` | Every unit and integration test |
 | `npm run test:e2e` | End-to-end tests: one console and several emulated mobile controllers |
 | `npm run test:load` | Load tests with simulated players (bots) |
-| `npm run lint` | Linter and formatter checks |
+| `npm run test:coverage` | Unit and integration tests with coverage thresholds |
+| `npm run lint` | ESLint (code quality and accessibility rules) |
+| `npm run format:check` | Prettier formatting check (`npm run format` fixes it) |
+| `npm run typecheck` | TypeScript type check of every workspace |
 | `npm test -w <workspace>` | Tests of a single workspace, e.g. `npm test -w apps/server` |
 
-Every pull request runs lint, tests, end-to-end tests and the build on GitHub Actions. A pull request cannot be merged while the pipeline fails.
+Every pull request runs lint, formatting, type checks, tests with coverage and the build on GitHub Actions (end-to-end tests join with E13-02). See [CI/CD pipeline](docs/technical/ci-cd.md). A pull request cannot be merged while the pipeline fails.
 
 ## Project structure
 
@@ -238,8 +241,12 @@ We use AI tools and declare them here, as our AI usage policy requires. Each tea
 
 | Tool | Used for | Parts of the project |
 | --- | --- | --- |
+<<<<<<< HEAD
 | Claude (Anthropic) | Drafting documentation, planning the product backlog | README, CONTRIBUTING, product roadmap |
 | DeepSeek — co-creation | Co-designing the ECHO game concept: gameplay loop, asymmetric roles (Prey/Predator), audio signature system, QTE gyro mechanic, horror design pillars, SDK requirements, acceptance criteria, backlog decomposition | `docs/game-dev/echo.md` |
+=======
+| Claude (Anthropic) | Drafting documentation, planning the product backlog, project tooling | README, CONTRIBUTING, product roadmap |
+>>>>>>> 8155fcf (ci(E1-03-05): add linting, formatting, commit hooks and CI pipeline)
 | *to be completed* | | |
 
 Update this table in the same pull request as the work it describes.
