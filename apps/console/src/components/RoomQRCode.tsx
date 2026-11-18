@@ -8,20 +8,26 @@ export function RoomQRCode({ joinPath }: { joinPath: string }) {
     <div style={{ textAlign: "center" }}>
       <div
         style={{
-          background: "var(--papier)",
+          background: "var(--byoc-paper)",
           padding: 20,
           display: "inline-block",
-          borderRadius: "var(--radius-card)",
+          borderRadius: "var(--byoc-radius-card)",
         }}
       >
-        <QRCode value={url} size={256} fgColor="var(--encre)" bgColor="var(--papier)" level="M" />
+        <QRCode
+          value={url}
+          size={256}
+          fgColor="var(--byoc-ink)"
+          bgColor="var(--byoc-paper)"
+          level="M"
+        />
       </div>
       <p
         style={{
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--byoc-font-mono)",
           fontSize: 14,
           marginTop: 16,
-          color: "var(--brume-2)",
+          color: "var(--byoc-mist-2)",
           wordBreak: "break-all",
         }}
       >

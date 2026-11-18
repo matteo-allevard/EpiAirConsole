@@ -24,8 +24,8 @@ packages/ui/ ────────────────┘
 ### `packages/ui/`
 - **May import:** `packages/protocol/`.
 - **Must not import:** `packages/sdk/`, `apps/*`, `games/*`.
-- **Allowed content:** React components, hooks, styles. No business
-  logic. No network calls.
+- **Allowed content:** React components, hooks, styles, brand tokens and
+  browser-only helpers (sounds, loaders). No business logic. No network calls.
 
 ### `packages/sdk/`
 - **May import:** `packages/protocol/`.
