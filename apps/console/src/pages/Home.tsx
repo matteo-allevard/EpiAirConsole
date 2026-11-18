@@ -51,18 +51,11 @@ export function Home() {
 
       {!room && (
         <div style={{ marginTop: 64 }}>
-          <button
-            className="btn-primary"
-            onClick={handleCreate}
-            disabled={loading}
-          >
+          <button className="btn-primary" onClick={handleCreate} disabled={loading}>
             {loading ? "Creating…" : "Create a room"}
           </button>
           {error && (
-            <p
-              role="alert"
-              style={{ marginTop: 24, color: "var(--erreur)", fontSize: 18 }}
-            >
+            <p role="alert" style={{ marginTop: 24, color: "var(--erreur)", fontSize: 18 }}>
               {error}
             </p>
           )}
