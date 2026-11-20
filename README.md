@@ -112,7 +112,7 @@ The full architecture is in [`docs/technical/architecture.md`](docs/technical/ar
 | Unit and integration tests | Vitest |
 | End-to-end tests | Playwright |
 | CI/CD | GitHub Actions |
-| Hosting | *To be decided* |
+| Hosting | Render (see [ADR 0004](docs/adr/0004-hosting-on-render.md)) |
 
 Each choice is explained in an Architecture Decision Record in [`docs/adr/`](docs/adr/).
 
