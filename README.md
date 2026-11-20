@@ -19,7 +19,7 @@ Byoc is first of all a **platform**. Any developer can build a game for it with 
 
 > **Project status: early development (Sprint 1).** Most features listed below are planned, not built yet. The [roadmap](#roadmap) shows what is done.
 
-**Try it online:** <DEPLOY_URL> *(available once continuous deployment is set up)*
+**Try it online:** <DEPLOY_URL> *(the server sleeps when unused: the first visit can take about a minute)*
 
 <!-- TODO: screenshots
 ![Console waiting room](docs/assets/screenshot-console.png)
