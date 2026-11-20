@@ -21,6 +21,7 @@ All the documentation of Byoc lives in this folder, in Markdown, and is written 
 | --- | --- | --- |
 | [Architecture](technical/architecture.md) | Components, data flow, stack | Planned (S1) |
 | [Developer mode](technical/dev-mode.md) | Controller simulator, message log, latency | Planned (S1 → S2) |
+| [Deployment](technical/deployment.md) | Render services, URLs, environment variables, troubleshooting | Done (E1-06) |
 | [Controller](technical/controller.md) | Joining a room, rendering, sensors, mobile browser support, local HTTPS | Planned (S1 → S4) |
 | [CI/CD pipeline](technical/ci-cd.md) | Checks run on every pull request, Git hooks, branch protection | Done (S1) |
 | [Architecture Decision Records](adr/README.md) | Why we chose what we chose | Ongoing |
