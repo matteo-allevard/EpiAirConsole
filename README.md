@@ -112,7 +112,7 @@ The full architecture is in [`docs/technical/architecture.md`](docs/technical/ar
 | Unit and integration tests | Vitest |
 | End-to-end tests | Playwright |
 | CI/CD | GitHub Actions |
-| Hosting | *To be decided* |
+| Hosting | Render (see [ADR 0004](docs/adr/0004-hosting-on-render.md)) |
 
 Each choice is explained in an Architecture Decision Record in [`docs/adr/`](docs/adr/).
 
@@ -241,12 +241,8 @@ We use AI tools and declare them here, as our AI usage policy requires. Each tea
 
 | Tool | Used for | Parts of the project |
 | --- | --- | --- |
-<<<<<<< HEAD
 | Claude (Anthropic) | Drafting documentation, planning the product backlog | README, CONTRIBUTING, product roadmap |
 | DeepSeek — co-creation | Co-designing the ECHO game concept: gameplay loop, asymmetric roles (Prey/Predator), audio signature system, QTE gyro mechanic, horror design pillars, SDK requirements, acceptance criteria, backlog decomposition | `docs/game-dev/echo.md` |
-=======
-| Claude (Anthropic) | Drafting documentation, planning the product backlog, project tooling | README, CONTRIBUTING, product roadmap |
->>>>>>> 8155fcf (ci(E1-03-05): add linting, formatting, commit hooks and CI pipeline)
 | *to be completed* | | |
 
 Update this table in the same pull request as the work it describes.
