@@ -16,6 +16,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Added
 
+- Continuous deployment on Render: `render.yaml` Blueprint for the server, console and controller, deployed after the CI passes on `main`
+- Production build of the server (esbuild bundle) and `npm start`
+- ADR 0004: hosting on Render (real-time server as a web service, console and controller as static sites)
+
 - ESLint (with accessibility rules), Prettier, and Git hooks that lint staged files and check commit messages (Conventional Commits)
 - GitHub Actions CI on every pull request: lint, format, typecheck, tests with coverage thresholds, build, dependency audit, Docker image build and PR title check
 - HTTP test for room creation (`POST /api/rooms`)

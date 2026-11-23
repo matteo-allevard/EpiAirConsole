@@ -42,4 +42,4 @@ npm run build
 
 ## Deployment
 
-*To be written with E1-06: every merge on `main` deploys the console, the controller and the real-time server.*
+Every merge on `main` is deployed to [Render](https://render.com) once all the checks above have passed on `main`: Render waits for the GitHub checks (`autoDeployTrigger: checksPass` in [`render.yaml`](../../render.yaml)). No deployment secret is needed in GitHub. Details, URLs and environment variables: [Deployment](deployment.md).

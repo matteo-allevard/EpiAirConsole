@@ -19,7 +19,7 @@ Byoc is first of all a **platform**. Any developer can build a game for it with 
 
 > **Project status: early development (Sprint 1).** Most features listed below are planned, not built yet. The [roadmap](#roadmap) shows what is done.
 
-**Try it online:** <DEPLOY_URL> *(available once continuous deployment is set up)*
+**Try it online:** <DEPLOY_URL> *(the server sleeps when unused: the first visit can take about a minute)*
 
 <!-- TODO: screenshots
 ![Console waiting room](docs/assets/screenshot-console.png)
@@ -112,7 +112,7 @@ The full architecture is in [`docs/technical/architecture.md`](docs/technical/ar
 | Unit and integration tests | Vitest |
 | End-to-end tests | Playwright |
 | CI/CD | GitHub Actions |
-| Hosting | *To be decided* |
+| Hosting | Render (see [ADR 0004](docs/adr/0004-hosting-on-render.md)) |
 
 Each choice is explained in an Architecture Decision Record in [`docs/adr/`](docs/adr/).
 
