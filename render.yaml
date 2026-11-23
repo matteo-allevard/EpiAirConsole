@@ -1,0 +1,81 @@
+# Render Blueprint: the three apps, as code (see docs/adr/0004-hosting-on-render.md).
+# Render deploys a service only after every GitHub check (our CI) has passed on main.
+
+services:
+  # Real-time server
+  - type: web
+    name: byoc-server
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm ci && npm run build -w @byoc/server
+    startCommand: npm start -w @byoc/server
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass
+    buildFilter:
+      paths:
+        - apps/server/**
+        - packages/protocol/**
+        - package.json
+        - package-lock.json
+        - render.yaml
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      # Comma-separated URLs of the console and controller static sites.
+      # Asked when the Blueprint is created; check the real URLs afterwards.
+      - key: CORS_ORIGINS
+        sync: false
+
+  # Console (main screen)
+  - type: web
+    name: byoc-console
+    runtime: static
+    buildCommand: npm ci && npm run build -w @byoc/console
+    staticPublishPath: apps/console/dist
+    autoDeployTrigger: checksPass
+    buildFilter:
+      paths:
+        - apps/console/**
+        - packages/protocol/**
+        - package.json
+        - package-lock.json
+        - render.yaml
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Read at build time by Vite. Full URLs, e.g. https://byoc-server.onrender.com
+      - key: VITE_SERVER_URL
+        sync: false
+      - key: VITE_CONTROLLER_URL
+        sync: false
+
+  # Controller (phone)
+  - type: web
+    name: byoc-controller
+    runtime: static
+    buildCommand: npm ci && npm run build -w @byoc/controller
+    staticPublishPath: apps/controller/dist
+    autoDeployTrigger: checksPass
+    buildFilter:
+      paths:
+        - apps/controller/**
+        - package.json
+        - package-lock.json
+        - render.yaml
+    # The QR code points to /controller?room=CODE: serve the app for every path.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: VITE_SERVER_URL
+        sync: false
