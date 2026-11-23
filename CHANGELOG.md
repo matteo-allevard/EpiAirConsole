@@ -35,6 +35,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
   - ADR 0002: games isolated in sandboxed iframes
   - ADR 0003: English for code and documentation
 - ECHO action game concept (E8-01): asymmetric horror, pure-sound gameplay, both roles fully playable without sight (`docs/game-dev/echo.md`)
+- Room creation flow (E3-01): the host opens the console, clicks "Create a room", and gets a short non-guessable code plus a QR code. The server supports multiple rooms in parallel with unique 4-character codes.
+- Product identity (E2): Byoc logo, Night violet palette with WCAG contrast ratios, two-page style guide and full identity guide in `docs/brand/`
+- Sound identity (E2-03): interface sounds, one note per player, startup jingle and room ambience, synthesized in the browser and can be turned off
+- `@byoc/ui` package with brand tokens, motion tokens, spinner, progress bar, skeleton, beacon loader and sounds
+
+### Changed
+
+- The console shows the Byoc logo and uses the shared brand tokens (E2-01)
 
 [Unreleased]: https://github.com/matteo-allevard/EpiAirConsole/commits/main
-- Room creation flow (E3-01): the host opens the console, clicks "Create a room", and gets a short non-guessable code plus a QR code. The server supports multiple rooms in parallel with unique 4-character codes.

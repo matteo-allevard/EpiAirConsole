@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Byoc sensory kit</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=JetBrains+Mono:wght@500&display=swap"
+    />
+    <link rel="stylesheet" href="../../../packages/ui/src/brand/tokens.css" />
+    <link rel="stylesheet" href="../../../packages/ui/src/brand/motion.css" />
+    <style>
+      /* Layout: one reading column on the night background, one band per family (sound, loading, motion, haptics); demos live in darker "scenes". */
+      :root {
+        color-scheme: dark;
+        --bg: #1b1530;
+        --scene: #140f25;
+        --surface: #2a2148;
+        --line: #3a2f5e;
+        --fg: #f5f1ff;
+        --muted: #a89fc4;
+        --accent: #ffd23f;
+        --lilas: #b9a3f0;
+        --braise: #ff8a5b;
+        --ok: #3ddc97;
+        --err: #ff6b7a;
+        --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+        --text: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--text);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+        padding-block: 40px 72px;
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin: 0;
+        text-wrap: balance;
+        font-variation-settings: "opsz" 96;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        line-height: 1.02;
+      }
+      h2 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        line-height: 1.1;
+      }
+      h3 {
+        font-size: 1.05rem;
+        font-weight: 500;
+        font-variation-settings: "opsz" 24;
+      }
+      p {
+        margin: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .lead {
+        font-size: 1.1rem;
+        max-width: 62ch;
+        color: var(--muted);
+      }
+      .mono {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.02em;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--lilas);
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .sec-head {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 70ch;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      /* Header */
+      header.top {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+      }
+      .mark {
+        display: flex;
+        align-items: baseline;
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        font-variation-settings: "opsz" 96;
+      }
+      .mark svg {
+        height: 0.74em;
+        width: 0.66em;
+        margin: 0 0.03em;
+        overflow: visible;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+      .switch input {
+        appearance: none;
+        width: 40px;
+        height: 22px;
+        border-radius: 999px;
+        background: var(--line);
+        position: relative;
+        margin: 0;
+        transition: background var(--byoc-duration-fast);
+        cursor: pointer;
+      }
+      .switch input::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--fg);
+        transition: transform var(--byoc-duration-base) var(--byoc-ease-ignite);
+      }
+      .switch input:checked {
+        background: var(--accent);
+      }
+      .switch input:checked::after {
+        transform: translateX(18px);
+        background: var(--bg);
+      }
+      .vol {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+      }
+      .vol input {
+        accent-color: var(--accent);
+        width: 110px;
+      }
+      .vol output {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        min-width: 3.5ch;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Buttons */
+      .btn {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 18px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          transform var(--byoc-duration-instant),
+          background var(--byoc-duration-fast);
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: var(--bg);
+      }
+      .btn-secondary {
+        background: var(--surface);
+        color: var(--fg);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+      .btn-secondary:hover {
+        background: var(--line);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--lilas);
+        padding-inline: 8px;
+      }
+      .btn-ghost:hover {
+        color: var(--fg);
+      }
+      .link {
+        color: var(--lilas);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        background: none;
+        border: 0;
+        padding: 0;
+        font-size: 0.95rem;
+      }
+      .link:hover {
+        color: var(--fg);
+      }
+
+      /* Demo scenes */
+      .scene {
+        background: var(--scene);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .scene-label {
+        position: absolute;
+        top: 12px;
+        left: 16px;
+      }
+
+      /* Try it */
+      .tv {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 24px;
+        align-items: center;
+      }
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        padding-top: 18px;
+      }
+      .menu-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .players {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .chip {
+        aspect-ratio: 1;
+        max-width: 100%;
+        border-radius: 50%;
+        border: 2px dashed var(--line);
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 1.15rem;
+        color: var(--muted);
+        transition:
+          background var(--byoc-duration-base) var(--byoc-ease-sweep),
+          border-color var(--byoc-duration-base),
+          color var(--byoc-duration-base),
+          transform var(--byoc-duration-base) var(--byoc-ease-ignite);
+      }
+      .chip.on {
+        border: 2px solid transparent;
+        color: var(--bg);
+        transform: scale(1.04);
+      }
+      .hint {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      /* Sound cards */
+      .sound-groups {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .grid-sounds {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 12px;
+      }
+      .snd {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 4px 12px;
+        align-items: start;
+        text-align: left;
+        transition:
+          border-color var(--byoc-duration-fast),
+          background var(--byoc-duration-fast);
+      }
+      .snd:hover {
+        border-color: var(--lilas);
+      }
+      .snd.playing {
+        border-color: var(--accent);
+      }
+      .snd .play {
+        grid-row: span 3;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+      }
+      .snd .play svg {
+        width: 16px;
+        height: 16px;
+      }
+      .snd.playing .play {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .snd.playing .play path {
+        fill: var(--bg);
+      }
+      .snd .name {
+        font-weight: 700;
+      }
+      .snd .use {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .snd .meta {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--lilas);
+        letter-spacing: 0.02em;
+      }
+
+      /* Loaders */
+      .loaders {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .loader-main {
+        grid-column: 1 / -1;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+      }
+      .beacon {
+        width: 72px;
+        height: 84px;
+      }
+      .status {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 1.05rem;
+        color: var(--fg);
+        font-variation-settings: "opsz" 24;
+        min-height: 1.6em;
+        text-align: center;
+      }
+      .status small {
+        display: block;
+        font-family: var(--text);
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .status span {
+        transition: opacity var(--byoc-duration-slow) var(--byoc-ease-sweep);
+      }
+      .loader-opts {
+        position: absolute;
+        right: 16px;
+        top: 10px;
+      }
+      .card-demo {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 44px;
+      }
+      .spins {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        color: var(--accent);
+      }
+      .prog-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        gap: 12px;
+      }
+      .prog-label b {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        color: var(--accent);
+      }
+      .skel-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .skel-card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .skel-card .byoc-skeleton:first-child {
+        aspect-ratio: 4 / 3;
+      }
+      .skel-line {
+        height: 10px;
+        border-radius: 6px !important;
+      }
+
+      /* Motion */
+      .motion {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 0.9rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      tr:last-child td {
+        border-bottom: 0;
+      }
+      th {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      td code {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--lilas);
+      }
+      .curve {
+        width: 44px;
+        height: 30px;
+        display: block;
+      }
+      .frame {
+        aspect-ratio: 16 / 9;
+        max-width: 100%;
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+        background: var(--bg);
+        border: 1px solid var(--line);
+      }
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px;
+      }
+      .screen.a {
+        background: var(--bg);
+      }
+      .screen.b {
+        background: #221a3d;
+      }
+      .screen .code-salon {
+        font-family: var(--mono);
+        font-size: clamp(1.4rem, 4vw, 2.2rem);
+        letter-spacing: 0.3em;
+        color: var(--accent);
+      }
+      .ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      /* Haptics */
+      .haptics {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 12px;
+      }
+      .hap {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hap-top {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .pattern {
+        display: flex;
+        align-items: center;
+        height: 18px;
+        gap: 0;
+      }
+      .pattern i {
+        display: block;
+        height: 100%;
+        border-radius: 3px;
+      }
+      .pattern i.v {
+        background: var(--accent);
+      }
+      .pattern i.p {
+        background: transparent;
+      }
+      .note {
+        font-size: 0.85rem;
+        color: var(--muted);
+        border-left: 3px solid var(--lilas);
+        padding: 6px 12px;
+      }
+
+      /* Rules and integration */
+      .rules {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      .rule {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .rule h3 {
+        font-size: 1rem;
+      }
+      .rule p {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      .code {
+        background: var(--scene);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .code-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 8px 8px 16px;
+        border-bottom: 1px solid var(--line);
+        gap: 12px;
+      }
+      .code pre {
+        margin: 0;
+        padding: 16px;
+        overflow-x: auto;
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: var(--fg);
+      }
+      .code pre .c {
+        color: var(--muted);
+      }
+      .code pre .s {
+        color: var(--accent);
+      }
+      .files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .file {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 6px 10px;
+      }
+      footer {
+        color: var(--muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--line);
+        padding-top: 20px;
+      }
+
+      @media (max-width: 760px) {
+        header.top,
+        .tv,
+        .loaders,
+        .motion {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .loader-main {
+          grid-column: auto;
+        }
+        .skel-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .skel-grid > :nth-child(3) {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .chip,
+        .switch input::after,
+        .btn {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap byoc">
+      <header class="top">
+        <div style="display: flex; flex-direction: column; gap: 14px; min-width: 0">
+          <div class="mark" aria-label="BYOC">
+            B<svg viewBox="0 0 60 70" aria-hidden="true">
+              <polygon points="30,27 0,0 17,0" fill="#FFD23F" />
+              <polygon points="30,27 43,0 60,0" fill="#FFD23F" />
+              <polygon points="22.5,36 37.5,36 41,70 19,70" fill="#B9A3F0" />
+              <polygon points="21.6,48 38.4,48 39.1,55 20.9,55" fill="#1B1530" />
+              <circle cx="30" cy="28" r="9.5" fill="#FFD23F" />
+              <circle cx="30" cy="28" r="3.6" fill="#1B1530" /></svg
+            >OC
+          </div>
+          <h1>Sensory kit</h1>
+          <p class="lead">
+            The sounds, loaders, transitions and vibrations of the console. Everything starts from
+            the lighthouse: a yellow lamp, a beam sweeping the night and a foghorn in E-flat.
+          </p>
+        </div>
+        <div class="controls" role="group" aria-label="Sound settings">
+          <label class="switch"><input type="checkbox" id="sfx-on" checked /> Sounds</label>
+          <label class="vol" for="sfx-vol"
+            >Volume <input type="range" id="sfx-vol" min="0" max="100" step="1" value="60" /><output
+              id="sfx-vol-out"
+              for="sfx-vol"
+              >60%</output
+            ></label
+          >
+          <button class="btn btn-secondary" id="amb-btn" aria-pressed="false" type="button">
+            Room ambience
+          </button>
+        </div>
+      </header>
+
+      <section aria-labelledby="t-try">
+        <div class="sec-head">
+          <span class="eyebrow">Try it</span>
+          <h2 id="t-try">The home screen, with sound</h2>
+          <p class="muted">
+            Click the buttons and the players as in the real console. Each player has their own
+            note, so you can tell by ear who just joined.
+          </p>
+        </div>
+        <div class="scene tv">
+          <div class="menu">
+            <span class="eyebrow scene-label">Console · home</span>
+            <div class="menu-row">
+              <button class="btn btn-primary" data-sfx="confirm" type="button">Start a room</button>
+              <button class="btn btn-secondary" data-sfx="click" type="button">Catalog</button>
+              <button class="btn btn-secondary" data-sfx="click" type="button">Options</button>
+            </div>
+            <div class="menu-row">
+              <button class="btn btn-ghost" data-sfx="back" type="button">Back</button>
+              <button class="link" data-sfx="link" type="button">Game rules</button>
+              <button class="btn btn-ghost" data-sfx="error" type="button">Invalid code</button>
+            </div>
+            <label class="switch hint" style="margin-top: 6px"
+              ><input type="checkbox" id="hover-on" /> Hover sound (off by default)</label
+            >
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0">
+            <span class="hint">Players · tap a slot to join or leave</span>
+            <div class="players" id="players"></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-sounds">
+        <div class="sec-head">
+          <span class="eyebrow">Sound identity</span>
+          <h2 id="t-sounds">The sounds</h2>
+          <p class="muted">
+            All tuned to the same scale as the intro foghorn (E-flat major pentatonic), short and
+            without a hard attack. Notes use scientific pitch notation.
+          </p>
+        </div>
+        <div class="sound-groups" id="sound-groups"></div>
+      </section>
+
+      <section aria-labelledby="t-load">
+        <div class="sec-head">
+          <span class="eyebrow">Waiting</span>
+          <h2 id="t-load">Loaders</h2>
+          <p class="muted">
+            The large beacon for long waits (joining, starting a game), the compact spinner inside
+            buttons, the progress bar when progress is known, and the skeleton while the catalog
+            arrives.
+          </p>
+        </div>
+        <div class="loaders">
+          <div class="scene loader-main">
+            <span class="eyebrow scene-label">Beacon · full screen</span>
+            <label class="switch hint loader-opts"
+              ><input type="checkbox" id="reduce-demo" /> Preview "reduce motion"</label
+            >
+            <div class="beacon" id="beacon"></div>
+            <p class="status" aria-live="polite">
+              <span id="status-main">Lighting the beacon</span><small>Room K7QX</small>
+            </p>
+          </div>
+          <div class="scene card-demo">
+            <span class="eyebrow scene-label">Compact spinner</span>
+            <div class="spins" aria-hidden="true">
+              <svg class="byoc-spinner" style="font-size: 16px" viewBox="0 0 24 24">
+                <g class="beam">
+                  <path
+                    d="M12 12 L22.5 8.8 A11 11 0 0 1 22.5 15.2 Z"
+                    fill="#FFD23F"
+                    opacity=".55"
+                  />
+                </g>
+                <circle cx="12" cy="12" r="4.2" fill="#FFD23F" />
+                <circle cx="12" cy="12" r="1.6" fill="#140F25" />
+              </svg>
+              <svg class="byoc-spinner" style="font-size: 24px" viewBox="0 0 24 24">
+                <g class="beam">
+                  <path
+                    d="M12 12 L22.5 8.8 A11 11 0 0 1 22.5 15.2 Z"
+                    fill="#FFD23F"
+                    opacity=".55"
+                  />
+                </g>
+                <circle cx="12" cy="12" r="4.2" fill="#FFD23F" />
+                <circle cx="12" cy="12" r="1.6" fill="#140F25" />
+              </svg>
+              <svg class="byoc-spinner" style="font-size: 36px" viewBox="0 0 24 24">
+                <g class="beam">
+                  <path
+                    d="M12 12 L22.5 8.8 A11 11 0 0 1 22.5 15.2 Z"
+                    fill="#FFD23F"
+                    opacity=".55"
+                  />
+                </g>
+                <circle cx="12" cy="12" r="4.2" fill="#FFD23F" />
+                <circle cx="12" cy="12" r="1.6" fill="#140F25" />
+              </svg>
+            </div>
+            <div>
+              <button class="btn btn-primary" id="join-btn" type="button">Join the room</button>
+            </div>
+            <p class="hint">The button waits, then confirms with the confirm sound.</p>
+          </div>
+          <div class="scene card-demo">
+            <span class="eyebrow scene-label">Progress and skeleton</span>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div class="prog-label"><span>Loading Naval Battle</span><b id="prog-val">0%</b></div>
+              <div
+                class="byoc-progress"
+                role="progressbar"
+                aria-label="Loading the game"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                id="prog"
+              >
+                <span></span>
+              </div>
+            </div>
+            <div class="skel-grid" aria-hidden="true">
+              <div class="skel-card">
+                <div class="byoc-skeleton"></div>
+                <div class="byoc-skeleton skel-line" style="width: 80%"></div>
+                <div class="byoc-skeleton skel-line" style="width: 50%"></div>
+              </div>
+              <div class="skel-card">
+                <div class="byoc-skeleton"></div>
+                <div class="byoc-skeleton skel-line" style="width: 70%"></div>
+                <div class="byoc-skeleton skel-line" style="width: 40%"></div>
+              </div>
+              <div class="skel-card">
+                <div class="byoc-skeleton"></div>
+                <div class="byoc-skeleton skel-line" style="width: 85%"></div>
+                <div class="byoc-skeleton skel-line" style="width: 55%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-motion">
+        <div class="sec-head">
+          <span class="eyebrow">Motion</span>
+          <h2 id="t-motion">Durations, curves and transitions</h2>
+          <p class="muted">
+            Three curves named after the lighthouse, five durations. A screen change opens like a
+            light switching on from the lamp.
+          </p>
+        </div>
+        <div class="motion">
+          <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Curve</th>
+                    <th>Shape</th>
+                    <th>For</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Sweep</b><br /><code>--byoc-ease-sweep</code></td>
+                    <td>
+                      <svg class="curve" viewBox="0 0 44 30">
+                        <path
+                          d="M2 28 C 30.6 28, 15.4 2, 42 2"
+                          fill="none"
+                          stroke="#FFD23F"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </td>
+                    <td>Movement, screen transitions, progress bars</td>
+                  </tr>
+                  <tr>
+                    <td><b>Ignite</b><br /><code>--byoc-ease-ignite</code></td>
+                    <td>
+                      <svg class="curve" viewBox="0 0 44 30">
+                        <path
+                          d="M2 28 C 16.4 -12, 28.2 2, 42 2"
+                          fill="none"
+                          stroke="#FFD23F"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </td>
+                    <td>Entrances with a slight bounce: player joins, switches</td>
+                  </tr>
+                  <tr>
+                    <td><b>Extinguish</b><br /><code>--byoc-ease-extinguish</code></td>
+                    <td>
+                      <svg class="curve" viewBox="0 0 44 30">
+                        <path
+                          d="M2 28 C 18 28, 42 2, 42 2"
+                          fill="none"
+                          stroke="#FFD23F"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </td>
+                    <td>Exits, closing dialogs</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Duration</th>
+                    <th>Value</th>
+                    <th>For</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--byoc-duration-instant</code></td>
+                    <td class="mono">80 ms</td>
+                    <td>Button press</td>
+                  </tr>
+                  <tr>
+                    <td><code>--byoc-duration-fast</code></td>
+                    <td class="mono">160 ms</td>
+                    <td>Hover, colours</td>
+                  </tr>
+                  <tr>
+                    <td><code>--byoc-duration-base</code></td>
+                    <td class="mono">240 ms</td>
+                    <td>Most animations</td>
+                  </tr>
+                  <tr>
+                    <td><code>--byoc-duration-slow</code></td>
+                    <td class="mono">420 ms</td>
+                    <td>Panels, state changes</td>
+                  </tr>
+                  <tr>
+                    <td><code>--byoc-duration-cinematic</code></td>
+                    <td class="mono">900 ms</td>
+                    <td>Screen transition, intro</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <div class="frame" id="frame">
+              <div class="screen a" id="scr-a">
+                <span class="eyebrow">Home</span
+                ><span
+                  style="
+                    font-family: var(--display);
+                    font-weight: 800;
+                    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+                  "
+                  >Good evening!</span
+                ><span class="hint">Scan the code with your phone</span>
+              </div>
+              <div class="screen b" id="scr-b" hidden>
+                <span class="eyebrow">Room</span><span class="code-salon">K7QX</span
+                ><span class="hint">3 players connected</span>
+              </div>
+              <div class="ring" id="ring"></div>
+            </div>
+            <div>
+              <button class="btn btn-secondary" id="swap-btn" type="button">Change screen</button>
+            </div>
+            <p class="hint">
+              Light reveal: 900 ms, Sweep curve, from the logo position. With "reduce motion", the
+              screen changes with a simple fade.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-hapt">
+        <div class="sec-head">
+          <span class="eyebrow">Controller</span>
+          <h2 id="t-hapt">Vibrations</h2>
+          <p class="muted">
+            On the phone, every important sound has a matching vibration. Yellow bars are
+            vibrations, gaps are pauses, drawn to scale.
+          </p>
+        </div>
+        <div class="haptics" id="haptics"></div>
+        <p class="note">
+          Vibrations work in the controller on Android (Chrome, Firefox). iPhone does not allow them
+          on the web: sound and screen are enough there. They do not fire in this preview.
+        </p>
+      </section>
+
+      <section aria-labelledby="t-rules">
+        <div class="sec-head">
+          <span class="eyebrow">Usage rules</span>
+          <h2 id="t-rules">Keeping it pleasant</h2>
+        </div>
+        <div class="rules">
+          <div class="rule">
+            <h3>Always optional</h3>
+            <p>
+              A Sounds switch and a volume slider in the options of the console and the controller.
+              Default volume: 60%.
+            </p>
+          </div>
+          <div class="rule">
+            <h3>Never alone</h3>
+            <p>
+              A sound never carries information on its own: every sound has a visual equivalent
+              (colour, text, icon). Informative sounds are captioned.
+            </p>
+          </div>
+          <div class="rule">
+            <h3>Short and soft</h3>
+            <p>
+              Interface sounds last under 400 ms. Only the intro foghorn and the victory sound are
+              longer.
+            </p>
+          </div>
+          <div class="rule">
+            <h3>No hover sound</h3>
+            <p>
+              The hover sound exists but is off by default: on a TV with eight controllers it would
+              quickly become annoying.
+            </p>
+          </div>
+          <div class="rule">
+            <h3>Reduce motion</h3>
+            <p>
+              When the device asks for it, the beam stops, the lamp breathes and transitions become
+              fades. Sounds stay.
+            </p>
+          </div>
+          <div class="rule">
+            <h3>Ambience in the background</h3>
+            <p>
+              The room ambience (low pad and waves) only plays on the waiting screen, never during a
+              game.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-code">
+        <div class="sec-head">
+          <span class="eyebrow">Integration</span>
+          <h2 id="t-code">In the code</h2>
+          <p class="muted">
+            TypeScript modules with no dependency. Sounds are generated in the browser: no audio
+            file, no licence to credit.
+          </p>
+        </div>
+        <div class="files">
+          <span class="file">sfx.ts</span><span class="file">beacon-loader.ts</span
+          ><span class="file">tokens.css</span><span class="file">motion.css</span>
+        </div>
+        <div class="code">
+          <div class="code-head">
+            <span class="mono muted">example.ts</span
+            ><button class="btn btn-ghost" id="copy-btn" type="button">Copy</button>
+          </div>
+          <pre
+            id="code-sample"
+          ><span class="c">import { createSfx, mountBeacon, type SoundName } from "@byoc/ui";</span>
+
+const sfx = createSfx({ volume: 0.6 });
+
+<span class="c">// One sound on every element with data-sfx</span>
+document.addEventListener('click', (e) =&gt; {
+  const el = (e.target as HTMLElement).closest&lt;HTMLElement&gt;('[data-sfx]');
+  if (el) sfx.play(el.dataset.sfx as SoundName);
+});
+
+<span class="c">// A player joins: the note depends on their slot (0 to 7)</span>
+sfx.join(player.index);
+
+<span class="c">// Waiting screen</span>
+const beacon = mountBeacon(document.querySelector&lt;HTMLElement&gt;(<span class="s">'#beacon'</span>)!);
+sfx.ambience(true);
+<span class="c">// … when the room is ready</span>
+beacon.stop(); sfx.ambience(false); sfx.play(<span class="s">'go'</span>);
+
+<span class="c">// Player options</span>
+sfx.setVolume(0.6); sfx.setEnabled(false);</pre>
+        </div>
+      </section>
+
+      <footer>
+        Byoc · sensory kit v1.0 · Night violet theme · synthesized sounds, no audio files
+      </footer>
+    </div>
+
+    <!-- dist/byoc-brand.js is the browser build of packages/ui (global BYOC). Rebuild: npx esbuild packages/ui/src/index.ts --bundle --format=iife --global-name=BYOC --outfile=docs/brand/kit/dist/byoc-brand.js -->
+    <script src="dist/byoc-brand.js"></script>
+    <script>
+      (function () {
+        const $ = (id) => document.getElementById(id);
+        const sfx = BYOC.createSfx({ volume: 0.6 });
+        const reduceOS =
+          window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const PLAYER_COLORS = [
+          "#FFD23F",
+          "#56B4E9",
+          "#FF8A5B",
+          "#3DDC97",
+          "#E77FD9",
+          "#F5F1FF",
+          "#9B8CFF",
+          "#F25C78",
+        ];
+        const PLAYER_NOTES = ["B♭4", "C5", "E♭5", "F5", "G5", "B♭5", "C6", "E♭6"];
+
+        /* Settings */
+        $("sfx-on").addEventListener("change", (e) => {
+          sfx.setEnabled(e.target.checked);
+          syncAmb();
+          if (e.target.checked) sfx.play("confirm");
+        });
+        $("sfx-vol").addEventListener("input", (e) => {
+          const v = +e.target.value;
+          $("sfx-vol-out").textContent = v + "%";
+          sfx.setVolume(v / 100);
+        });
+        $("sfx-vol").addEventListener("change", () => sfx.play("click"));
+        function syncAmb() {
+          const on = sfx.ambienceOn;
+          $("amb-btn").setAttribute("aria-pressed", on);
+          $("amb-btn").textContent = on ? "Stop ambience" : "Room ambience";
+        }
+        $("amb-btn").addEventListener("click", () => {
+          sfx.ambience(!sfx.ambienceOn);
+          syncAmb();
+        });
+
+        /* Try-it buttons */
+        document.querySelectorAll("[data-sfx]").forEach((el) => {
+          el.addEventListener("click", () => sfx.play(el.dataset.sfx));
+          el.addEventListener("pointerenter", () => {
+            if ($("hover-on").checked) sfx.play("hover");
+          });
+        });
+
+        /* Players */
+        const pl = $("players");
+        PLAYER_COLORS.forEach((c, i) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "chip";
+          b.textContent = i + 1;
+          b.setAttribute("aria-pressed", "false");
+          b.setAttribute("aria-label", "Player " + (i + 1) + ", note " + PLAYER_NOTES[i]);
+          b.addEventListener("click", () => {
+            const on = !b.classList.contains("on");
+            b.classList.toggle("on", on);
+            b.style.background = on ? c : "transparent";
+            b.setAttribute("aria-pressed", on);
+            on ? sfx.join(i) : sfx.leave(i);
+          });
+          pl.appendChild(b);
+        });
+        [0, 2, 3].forEach((i) => {
+          const b = pl.children[i];
+          b.classList.add("on");
+          b.style.background = PLAYER_COLORS[i];
+          b.setAttribute("aria-pressed", "true");
+        });
+
+        /* Sound catalog */
+        const GROUPS = [
+          [
+            "Navigation",
+            [
+              ["click", "Click", "Secondary buttons, tabs, checkboxes", "E♭5 · 70 ms"],
+              ["confirm", "Confirm", "Primary button, confirming a choice", "B♭4 → E♭5 · 230 ms"],
+              ["back", "Back", "Cancel, go back, close", "E♭5 → B♭4 · 210 ms"],
+              ["link", "Link", "Text links, opening the rules", "G5 glide · 120 ms"],
+              ["hover", "Hover", "Optional, off by default", "E♭6 · 30 ms"],
+              ["error", "Error", "Invalid room code, refused action", "G4 → F4 muted · 300 ms"],
+            ],
+          ],
+          [
+            "Room and players",
+            [
+              [
+                "join",
+                "Player joins",
+                "Each player has their own note (here player 3)",
+                "E♭4 → player note · 450 ms",
+                2,
+              ],
+              [
+                "leave",
+                "Player leaves",
+                "The player note drops one octave",
+                "note → octave below · 400 ms",
+                2,
+              ],
+              [
+                "disconnect",
+                "Controller disconnected",
+                "A phone loses its connection",
+                "B♭4 ×2 → E♭4 · 500 ms",
+              ],
+              [
+                "yourTurn",
+                "Your turn",
+                "Player turn, notification",
+                "G5 ×2, like a blinking light · 320 ms",
+              ],
+            ],
+          ],
+          [
+            "Game",
+            [
+              ["seq-countdown", "Countdown", "3, 2, 1, go", "B♭4 ×3 → E♭ major chord · 2.2 s"],
+              [
+                "victory",
+                "Victory",
+                "Game won: the foghorn plays three rising notes",
+                "E♭3 → B♭3 → E♭4 · 1.7 s",
+              ],
+              ["roundEnd", "Round end", "One held foghorn note, neutral", "B♭3 · 0.9 s"],
+              [
+                "intro",
+                "Logo intro",
+                "Laser, lamp ignition and held foghorn",
+                "with the animation · 6.4 s",
+              ],
+            ],
+          ],
+        ];
+        const playIcon =
+          '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="#FFD23F"/></svg>';
+        const box = $("sound-groups");
+        GROUPS.forEach(([title, items]) => {
+          const g = document.createElement("div");
+          g.className = "group";
+          g.innerHTML = "<h3>" + title + "</h3>";
+          const grid = document.createElement("div");
+          grid.className = "grid-sounds";
+          items.forEach(([key, name, use, meta, idx]) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "snd";
+            b.innerHTML =
+              '<span class="play">' +
+              playIcon +
+              '</span><span class="name">' +
+              name +
+              '</span><span class="use">' +
+              use +
+              '</span><span class="meta">' +
+              meta +
+              "</span>";
+            b.setAttribute("aria-label", "Play: " + name);
+            const dur =
+              { "seq-countdown": 2300, victory: 1800, roundEnd: 1100, intro: 6500 }[key] || 450;
+            b.addEventListener("click", () => {
+              if (key === "seq-countdown") {
+                [0, 600, 1200].forEach((d) => setTimeout(() => sfx.play("countdownTick"), d));
+                setTimeout(() => sfx.play("go"), 1800);
+              } else if (key === "intro") sfx.intro();
+              else if (key === "join") sfx.join(idx);
+              else if (key === "leave") sfx.leave(idx);
+              else sfx.play(key);
+              b.classList.add("playing");
+              clearTimeout(b._t);
+              b._t = setTimeout(() => b.classList.remove("playing"), dur);
+            });
+            grid.appendChild(b);
+          });
+          g.appendChild(grid);
+          box.appendChild(g);
+        });
+
+        /* Beacon */
+        const loader = BYOC.mountBeacon($("beacon"), { reducedMotion: reduceOS });
+        $("reduce-demo").checked = reduceOS;
+        $("reduce-demo").addEventListener("change", (e) =>
+          loader.setReducedMotion(e.target.checked)
+        );
+        const STEPS = [
+          "Lighting the beacon",
+          "Looking for controllers",
+          "Syncing players",
+          "Loading the game",
+        ];
+        let si = 0;
+        const st = $("status-main");
+        setInterval(() => {
+          st.style.opacity = 0;
+          setTimeout(() => {
+            si = (si + 1) % STEPS.length;
+            st.textContent = STEPS[si];
+            st.style.opacity = 1;
+          }, 420);
+        }, 2200);
+
+        /* Waiting button */
+        const spinSvg =
+          '<svg class="byoc-spinner" viewBox="0 0 24 24" aria-hidden="true"><g class="beam"><path d="M12 12 L22.5 8.8 A11 11 0 0 1 22.5 15.2 Z" fill="#1B1530" opacity=".45"/></g><circle cx="12" cy="12" r="4.2" fill="#1B1530"/><circle cx="12" cy="12" r="1.6" fill="#FFD23F"/></svg>';
+        const jb = $("join-btn");
+        let busy = false;
+        jb.addEventListener("click", () => {
+          if (busy) return;
+          busy = true;
+          sfx.play("click");
+          jb.innerHTML = spinSvg + " Connecting…";
+          jb.setAttribute("aria-busy", "true");
+          setTimeout(() => {
+            jb.textContent = "Connected";
+            jb.removeAttribute("aria-busy");
+            sfx.play("confirm");
+            setTimeout(() => {
+              jb.textContent = "Join the room";
+              busy = false;
+            }, 1600);
+          }, 1800);
+        });
+
+        /* Progress bar */
+        let p = 0;
+        const prog = $("prog"),
+          pv = $("prog-val");
+        setInterval(() => {
+          p = p >= 100 ? 0 : Math.min(100, p + 4 + Math.round(Math.random() * 9));
+          prog.style.setProperty("--progress", p + "%");
+          prog.setAttribute("aria-valuenow", p);
+          pv.textContent = p + "%";
+        }, 480);
+
+        /* Screen transition */
+        let showB = false,
+          anim = false;
+        $("swap-btn").addEventListener("click", () => {
+          if (anim) return;
+          anim = true;
+          const next = showB ? $("scr-a") : $("scr-b"),
+            prev = showB ? $("scr-b") : $("scr-a");
+          next.hidden = false;
+          next.style.zIndex = 2;
+          prev.style.zIndex = 1;
+          const reduce = reduceOS || $("reduce-demo").checked;
+          sfx.play(showB ? "back" : "confirm");
+          const done = () => {
+            prev.hidden = true;
+            next.style.zIndex = "";
+            prev.style.zIndex = "";
+            showB = !showB;
+            anim = false;
+          };
+          if (reduce || !next.animate) {
+            if (next.animate)
+              next.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240 }).onfinish = done;
+            else done();
+            return;
+          }
+          next.animate(
+            [{ clipPath: "circle(0% at 50% 42%)" }, { clipPath: "circle(75% at 50% 42%)" }],
+            { duration: 900, easing: "cubic-bezier(.65,0,.35,1)" }
+          ).onfinish = done;
+          const f = $("frame").getBoundingClientRect(),
+            ring = $("ring"),
+            R = Math.hypot(f.width, f.height) * 0.75;
+          Object.assign(ring.style, {
+            width: 2 * R + "px",
+            height: 2 * R + "px",
+            left: f.width / 2 - R + "px",
+            top: f.height * 0.42 - R + "px",
+          });
+          ring.animate(
+            [
+              { transform: "scale(0)", opacity: 1 },
+              { transform: "scale(1)", opacity: 0 },
+            ],
+            { duration: 900, easing: "cubic-bezier(.65,0,.35,1)" }
+          );
+        });
+
+        /* Vibrations */
+        const HAPT = [
+          ["Click", "Button press", [8]],
+          ["Confirm", "Choice confirmed", [12, 40, 18]],
+          ["Error", "Action refused", [30, 60, 30]],
+          ["Your turn", "Player turn", [20, 80, 20]],
+          ["Victory", "Game won", [40, 60, 40, 60, 120]],
+          ["Disconnected", "Controller lost", [90]],
+        ];
+        const hb = $("haptics"),
+          MAXT = 320;
+        HAPT.forEach(([name, use, pat]) => {
+          const d = document.createElement("div");
+          d.className = "hap";
+          const total = pat.reduce((a, b) => a + b, 0);
+          d.innerHTML =
+            '<div class="hap-top"><b>' +
+            name +
+            '</b><span class="mono muted">[' +
+            pat.join(", ") +
+            "] · " +
+            total +
+            " ms</span></div>" +
+            '<div class="pattern" aria-hidden="true">' +
+            pat
+              .map(
+                (v, i) =>
+                  '<i class="' +
+                  (i % 2 ? "p" : "v") +
+                  '" style="width:' +
+                  ((v / MAXT) * 100).toFixed(1) +
+                  '%"></i>'
+              )
+              .join("") +
+            "</div>" +
+            '<span class="hint">' +
+            use +
+            "</span>";
+          hb.appendChild(d);
+        });
+
+        /* Copy the example */
+        $("copy-btn").addEventListener("click", () => {
+          const txt = $("code-sample").innerText,
+            btn = $("copy-btn");
+          const ok = () => {
+            btn.textContent = "Copied";
+            sfx.play("click");
+            setTimeout(() => (btn.textContent = "Copy"), 1500);
+          };
+          const fallback = () => {
+            const r = document.createRange();
+            r.selectNodeContents($("code-sample"));
+            const s = getSelection();
+            s.removeAllRanges();
+            s.addRange(r);
+            btn.textContent = "Selected, press Ctrl+C";
+          };
+          try {
+            navigator.clipboard.writeText(txt).then(ok, fallback);
+          } catch (e) {
+            fallback();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

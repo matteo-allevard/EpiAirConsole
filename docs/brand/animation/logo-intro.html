@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Byoc logo intro</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #1b1530;
+        color: #f5f1ff;
+        font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+      }
+      .stage {
+        position: fixed;
+        inset: 0;
+        background: #1b1530;
+        overflow: hidden;
+      }
+      #cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wm {
+        font-family: "Bricolage Grotesque", "Avenir Next", sans-serif;
+        font-weight: 800;
+        font-variation-settings: "opsz" 96;
+        font-size: min(15vw, 26vh);
+        letter-spacing: 0.02em;
+        line-height: 1;
+        white-space: nowrap;
+        color: #1b1530;
+        position: relative;
+      }
+      .wm svg {
+        height: 0.74em;
+        width: 0.66em;
+        margin: 0 0.03em;
+        overflow: visible;
+        vertical-align: baseline;
+      }
+      .wm .l {
+        position: relative;
+        z-index: 1;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-image: linear-gradient(to top, rgba(27, 21, 48, 0), rgba(27, 21, 48, 0));
+      }
+      #ov {
+        position: absolute;
+        margin: 0;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        padding: 16px;
+        z-index: 5;
+      }
+      .bar button {
+        font: inherit;
+        font-weight: 700;
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 18px;
+        cursor: pointer;
+      }
+      .bar .p {
+        background: #ffd23f;
+        color: #1b1530;
+      }
+      .bar .s {
+        background: #2a2148;
+        color: #f5f1ff;
+        box-shadow: inset 0 0 0 1px #3a2f5e;
+      }
+      button:focus-visible {
+        outline: 3px solid #ffd23f;
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage" id="stage">
+      <div id="cam">
+        <span class="wm" id="word"
+          ><span class="l" id="lB">B</span
+          ><svg id="ysvg" viewBox="0 0 60 70" aria-hidden="true">
+            <defs>
+              <clipPath id="byocTw"><rect id="tcr" x="0" y="70" width="60" height="0" /></clipPath>
+              <radialGradient id="ga" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="100">
+                <stop offset="0" stop-color="#FFD23F" stop-opacity=".42" />
+                <stop offset=".5" stop-color="#FFD23F" stop-opacity=".1" />
+                <stop offset="1" stop-color="#FFD23F" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="gb" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="100">
+                <stop offset="0" stop-color="#FFD23F" stop-opacity=".42" />
+                <stop offset=".5" stop-color="#FFD23F" stop-opacity=".1" />
+                <stop offset="1" stop-color="#FFD23F" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="gc" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="100">
+                <stop offset="0" stop-color="#FFF1B8" stop-opacity=".9" />
+                <stop offset=".45" stop-color="#FFE27A" stop-opacity=".22" />
+                <stop offset="1" stop-color="#FFD23F" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <g id="cB" transform="translate(30 27)" opacity="0">
+              <polygon class="p0" fill="url(#ga)" opacity=".35" />
+              <polygon class="p1" fill="url(#gb)" opacity=".7" />
+              <polygon class="p2" fill="url(#gc)" />
+            </g>
+            <g id="arms" opacity="0">
+              <polygon id="aL" points="30,27 0,0 17,0" fill="#FFD23F" />
+              <polygon id="aR" points="30,27 43,0 60,0" fill="#FFD23F" />
+            </g>
+            <g clip-path="url(#byocTw)">
+              <polygon points="22.5,36 37.5,36 41,70 19,70" fill="#B9A3F0" />
+              <polygon points="21.6,48 38.4,48 39.1,55 20.9,55" fill="#1B1530" />
+            </g>
+            <circle id="spark" cx="30" cy="70" r="3.2" fill="#FFD23F" opacity="0" /></svg
+          ><span class="l" id="lO">O</span><span class="l" id="lC">C</span
+          ><svg id="ov" viewBox="0 0 60 70" aria-hidden="true">
+            <g id="cF" transform="translate(30 27)" opacity="0">
+              <polygon class="p0" fill="url(#ga)" opacity=".35" />
+              <polygon class="p1" fill="url(#gb)" opacity=".7" />
+              <polygon class="p2" fill="url(#gc)" />
+            </g>
+            <circle id="halo" cx="30" cy="28" r="14" fill="#FFD23F" opacity="0" />
+            <circle id="lamp" cx="30" cy="28" r="0" fill="#FFD23F" />
+            <circle id="dot" cx="30" cy="28" r="0" fill="#1B1530" /></svg
+        ></span>
+      </div>
+    </div>
+
+    <div class="bar">
+      <button class="p" id="play" type="button">Play with sound</button
+      ><button class="s" id="mute" type="button">Replay without sound</button>
+    </div>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const stage = $("stage"),
+        cam = $("cam"),
+        ov = $("ov");
+      const cl = (v) => Math.max(0, Math.min(1, v));
+      const eio = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+      const eo = (x) => 1 - Math.pow(1 - x, 3);
+      const sine = (x) => 0.5 - 0.5 * Math.cos(Math.PI * x);
+      const back = (x) => {
+        const c = 1.9;
+        return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2);
+      };
+      const lerp = (a, b, u) => a + (b - a) * u;
+      const rgb = (a) => `rgb(${a.map(Math.round).join(",")})`;
+      const mix = (a, b, u) => rgb(a.map((c, i) => lerp(c, b[i], u)));
+      const R = Math.PI / 180,
+        F = 400,
+        LEN = 700,
+        DARK = [27, 21, 48],
+        LIGHT = [245, 241, 255],
+        PALE = [255, 241, 184],
+        SUN = [255, 210, 63];
+      const SPLIT = 4050,
+        TOTAL = 4800,
+        BAND = 0.4,
+        LFADE = 1300;
+      const EK = [
+        [0, -40],
+        [1 / 3, -5],
+        [2 / 3, -8],
+        [1, 89.5],
+      ];
+      let M, raf;
+      function elev(q) {
+        for (let i = 0; i < 3; i++) {
+          const [a, ea] = EK[i],
+            [b, eb] = EK[i + 1];
+          if (q <= b) return lerp(ea, eb, sine((q - a) / (b - a)));
+        }
+        return 89.5;
+      }
+      function dirAt(t) {
+        const q = sine(cl((t - 1350) / (SPLIT - 1350))),
+          ph = (180 - 540 * q) * R,
+          e = elev(q) * R;
+        return [Math.cos(e) * Math.cos(ph), Math.sin(e), Math.cos(e) * Math.sin(ph)];
+      }
+      const scr = (a) => [Math.cos(a * R), -Math.sin(a * R), 0];
+      function hull(P) {
+        P.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+        const c = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+        const lo = [],
+          up = [];
+        for (const p of P) {
+          while (lo.length > 1 && c(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop();
+          lo.push(p);
+        }
+        for (let i = P.length - 1; i >= 0; i--) {
+          const p = P[i];
+          while (up.length > 1 && c(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop();
+          up.push(p);
+        }
+        return lo.slice(0, -1).concat(up.slice(0, -1));
+      }
+      function cone(d, half) {
+        const L = LEN * (1 - 0.75 * Math.max(0, d[2])),
+          r = Math.tan(half * R);
+        let u = [d[2], 0, -d[0]];
+        let n = Math.hypot(...u);
+        if (n < 1e-3) {
+          u = [1, 0, 0];
+          n = 1;
+        }
+        u = u.map((x) => x / n);
+        const v = [u[1] * d[2] - u[2] * d[1], u[2] * d[0] - u[0] * d[2], u[0] * d[1] - u[1] * d[0]];
+        const pts = [[0, 0]];
+        let rm = 1;
+        for (let i = 0; i < 24; i++) {
+          const a = (2 * Math.PI * i) / 24,
+            ca = Math.cos(a) * r,
+            sa = Math.sin(a) * r;
+          const P = [0, 1, 2].map((k) => L * (d[k] + u[k] * ca + v[k] * sa)),
+            s = F / (F - Math.min(P[2], 0.8 * F));
+          const q = [P[0] * s, -P[1] * s];
+          pts.push(q);
+          rm = Math.max(rm, Math.hypot(q[0], q[1]));
+        }
+        return {
+          pts: hull(pts)
+            .map((p) => p[0].toFixed(1) + "," + p[1].toFixed(1))
+            .join(" "),
+          rm,
+        };
+      }
+      const LAYERS = [
+        [15, "p0", "ga"],
+        [9, "p1", "gb"],
+        [3.5, "p2", "gc"],
+      ];
+      function drawBeam(g, d) {
+        LAYERS.forEach(([h, c, gr]) => {
+          const r = cone(d, h);
+          $(g)
+            .querySelector("." + c)
+            .setAttribute("points", r.pts);
+          $(gr).setAttribute("r", r.rm);
+        });
+      }
+      function measure() {
+        cam.style.transform = "none";
+        const s = stage.getBoundingClientRect(),
+          y = $("ysvg").getBoundingClientRect(),
+          w = $("word").getBoundingClientRect();
+        Object.assign(ov.style, {
+          left: y.left - w.left + "px",
+          top: y.top - w.top + "px",
+          width: y.width + "px",
+          height: y.height + "px",
+        });
+        const lamp = { x: y.left - s.left + y.width / 2, y: y.top - s.top + (y.height * 27) / 70 };
+        const tc = (id, fb) => {
+          const r = $(id).getBoundingClientRect(),
+            la = Math.atan2(
+              r.top - s.top + r.height * 0.6 - lamp.y,
+              r.left - s.left + r.width / 2 - lamp.x
+            );
+          for (let t = 2000; t < SPLIT; t += 10) {
+            const d = dirAt(t);
+            if (d[2] > 0.5) continue;
+            const sx = d[0],
+              sy = -d[1];
+            if (Math.hypot(sx, sy) < 0.5) continue;
+            let df = Math.abs(Math.atan2(sy, sx) - la);
+            df = Math.min(df, 2 * Math.PI - df);
+            if (df < 22 * R) return t - 120;
+          }
+          return fb;
+        };
+        M = {
+          W: s.width,
+          H: s.height,
+          P0: { x: lamp.x, y: y.top - s.top + y.height },
+          L: lamp,
+          C: { x: w.left - s.left + w.width / 2, y: w.top - s.top + w.height / 2 },
+          tc: { lB: tc("lB", 2950), lO: tc("lO", 2350), lC: tc("lC", 2380) },
+        };
+        return M.tc;
+      }
+      function cameraAt(t) {
+        let s, f, ty;
+        if (t < 1100) {
+          const u = eio(cl(t / 1100));
+          s = lerp(4.2, 3.4, u);
+          f = { x: M.P0.x, y: lerp(M.P0.y, M.L.y, u) };
+          ty = lerp(M.H * 0.64, M.H * 0.5, u);
+        } else if (t < 2300) {
+          s = lerp(3.4, 3.2, (t - 1100) / 1200);
+          f = M.L;
+          ty = M.H * 0.5;
+        } else {
+          const u = eio(cl((t - 2300) / 1700));
+          s = lerp(3.2, 1, u);
+          f = { x: lerp(M.L.x, M.C.x, u), y: lerp(M.L.y, M.C.y, u) };
+          ty = M.H * 0.5;
+        }
+        cam.style.transform = `translate(${M.W / 2 - f.x * s}px,${ty - f.y * s}px) scale(${s})`;
+      }
+      function frame(t) {
+        cameraAt(t);
+        const k = eio(cl((t - 150) / 900));
+        $("tcr").setAttribute("y", 70 - 36 * k);
+        $("tcr").setAttribute("height", 36 * k);
+        const sp = $("spark");
+        sp.setAttribute("cy", 71 - 36 * k);
+        sp.setAttribute("opacity", t < 150 ? cl(t / 150) : cl(1 - (t - 1050) / 180));
+        $("lamp").setAttribute("r", 9.5 * Math.max(0, back(cl((t - 1000) / 380))));
+        $("dot").setAttribute("r", 3.6 * eo(cl((t - 1180) / 260)));
+        const on = cl((t - 1300) / 250),
+          out = sine(cl((t - SPLIT - 150) / 550)),
+          co = on * (1 - out);
+        const s2 = sine(cl((t - SPLIT) / 600)),
+          aL = 270 - 37 * s2,
+          aR = 270 + 37 * s2;
+        let dz = 0;
+        if (t < SPLIT) {
+          const d = dirAt(t);
+          dz = d[2];
+          drawBeam("cB", d);
+          drawBeam("cF", d);
+          const o = Math.min(1.2, 0.75 + 0.45 * Math.max(0, dz) - 0.3 * Math.max(0, -dz));
+          $("cB").setAttribute("opacity", co * o * cl(0.5 - dz * 3));
+          $("cF").setAttribute("opacity", co * o * cl(0.5 + dz * 3));
+        } else {
+          drawBeam("cB", scr(aL));
+          drawBeam("cF", scr(aR));
+          const each = co * lerp(0.375, 0.5, s2);
+          $("cB").setAttribute("opacity", each);
+          $("cF").setAttribute("opacity", each);
+        }
+        const pf = Math.max(0, dz);
+        $("halo").setAttribute("r", 13 + 14 * pf);
+        $("halo").setAttribute("opacity", co * 0.45 * pf * pf);
+        $("arms").setAttribute("opacity", sine(cl((t - 3850) / 700)));
+        const af = mix(PALE, SUN, sine(cl((t - SPLIT) / 650)));
+        $("aL").setAttribute("fill", af);
+        $("aR").setAttribute("fill", af);
+        $("aL").setAttribute("transform", `rotate(${aL - 233} 30 27)`);
+        $("aR").setAttribute("transform", `rotate(${aR - 307} 30 27)`);
+        ["lB", "lO", "lC"].forEach((id) => {
+          const x = cl((t - M.tc[id]) / LFADE),
+            lv = t >= TOTAL ? 1 : eo(x),
+            p = lerp(-BAND, 1, lv) * 100;
+          $(id).style.backgroundImage =
+            `linear-gradient(to top,${rgb(LIGHT)} ${p.toFixed(1)}%,rgba(27,21,48,0) ${(p + BAND * 100).toFixed(1)}%)`;
+        });
+      }
+      function buildSound(ctx, master, sp, T) {
+        const at = (ms) => T + (ms * sp) / 1000;
+        const env = (g, t, peak, a, d) => {
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(peak, t + a);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + a + d);
+        };
+        const t1 = at(150),
+          dur = 0.9 * sp,
+          f = ctx.createBiquadFilter();
+        f.type = "lowpass";
+        f.Q.value = 7;
+        f.frequency.setValueAtTime(350, t1);
+        f.frequency.exponentialRampToValueAtTime(4200, t1 + dur);
+        const g = ctx.createGain();
+        env(g, t1, 0.09, 0.12, dur);
+        f.connect(g);
+        g.connect(master);
+        [0, 9].forEach((dt) => {
+          const o = ctx.createOscillator();
+          o.type = "sawtooth";
+          o.detune.value = dt;
+          o.frequency.setValueAtTime(110, t1);
+          o.frequency.exponentialRampToValueAtTime(660, t1 + dur);
+          o.connect(f);
+          o.start(t1);
+          o.stop(t1 + dur + 0.2);
+        });
+        const t2 = at(1000);
+        const z = ctx.createOscillator(),
+          zg = ctx.createGain();
+        z.type = "triangle";
+        z.frequency.setValueAtTime(2400, t2);
+        z.frequency.exponentialRampToValueAtTime(170, t2 + 0.35);
+        env(zg, t2, 0.16, 0.008, 0.42);
+        z.connect(zg);
+        zg.connect(master);
+        z.start(t2);
+        z.stop(t2 + 0.5);
+        const th = ctx.createOscillator(),
+          tg = ctx.createGain();
+        th.frequency.setValueAtTime(140, t2);
+        th.frequency.exponentialRampToValueAtTime(55, t2 + 0.3);
+        env(tg, t2, 0.22, 0.005, 0.35);
+        th.connect(tg);
+        tg.connect(master);
+        th.start(t2);
+        th.stop(t2 + 0.45);
+        const t = at(3700),
+          f0 = 155,
+          peak = 0.042,
+          HOLD = 1.9;
+        const lp1 = ctx.createBiquadFilter(),
+          lp2 = ctx.createBiquadFilter();
+        lp1.type = lp2.type = "lowpass";
+        lp1.Q.value = 0.6;
+        lp2.Q.value = 0.5;
+        lp2.frequency.value = 900;
+        lp1.frequency.setValueAtTime(260, t);
+        lp1.frequency.linearRampToValueAtTime(620, t + 0.8);
+        const hg = ctx.createGain(),
+          end = t + 0.8 + HOLD;
+        hg.gain.setValueAtTime(0, t);
+        hg.gain.linearRampToValueAtTime(peak, t + 0.8);
+        hg.gain.setValueAtTime(peak, end);
+        hg.gain.setTargetAtTime(0, end, 0.14);
+        lp1.connect(lp2);
+        lp2.connect(hg);
+        hg.connect(master);
+        [
+          [f0, "sawtooth", 0.55],
+          [f0 * 1.004, "sawtooth", 0.55],
+          [f0 / 2, "sine", 0.8],
+          [f0, "sine", 0.6],
+        ].forEach(([fq, ty, a]) => {
+          const o = ctx.createOscillator(),
+            og = ctx.createGain();
+          o.type = ty;
+          og.gain.value = a;
+          o.frequency.setValueAtTime(fq * 0.96, t);
+          o.frequency.exponentialRampToValueAtTime(fq, t + 0.35);
+          o.connect(og);
+          og.connect(lp1);
+          o.start(t);
+          o.stop(end + 1.2);
+        });
+      }
+
+      let actx;
+      function play(withSound) {
+        cancelAnimationFrame(raf);
+        measure();
+        if (withSound) {
+          actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+          actx.resume();
+          const m = actx.createGain();
+          m.gain.value = 0.8;
+          m.connect(actx.destination);
+          buildSound(actx, m, 1, actx.currentTime + 0.05);
+        }
+        const t0 = performance.now() + 50;
+        const step = (n) => {
+          const t = Math.max(0, n - t0);
+          frame(Math.min(t, TOTAL));
+          if (t < TOTAL) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+      }
+      document.getElementById("play").onclick = () => play(true);
+      document.getElementById("mute").onclick = () => play(false);
+      addEventListener("resize", () => {
+        measure();
+        frame(TOTAL);
+      });
+      let started = false;
+      const go = () => {
+        if (started) return;
+        started = true;
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          measure();
+          frame(TOTAL);
+        } else play(false);
+      };
+      document.fonts.load('800 100px "Bricolage Grotesque"').then(go, go);
+      setTimeout(go, 1500);
+    </script>
+  </body>
+</html>

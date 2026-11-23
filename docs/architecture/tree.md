@@ -40,7 +40,7 @@ BYOC/
 │ │ ├── src/
 │ │ ├── package.json
 │ │ └── tsconfig.json
-│ └── ui/ # Shared React components
+│ └── ui/ # Shared UI: brand tokens, sounds, loaders, React components
 │ ├── src/
 │ ├── package.json
 │ └── tsconfig.json
@@ -53,6 +53,7 @@ BYOC/
 │ ├── platformer/
 │ └── echo/
 ├── docs/
+│ ├── brand/ # Logo, style guide, identity guide, sounds and motion
 │ ├── user/ # Hosts and players
 │ ├── game-dev/ # External game developers
 │ ├── technical/ # Architecture, protocol, dependency rules

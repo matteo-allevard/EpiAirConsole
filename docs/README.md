@@ -31,4 +31,5 @@ All the documentation of Byoc lives in this folder, in Markdown, and is written 
 | Page | Content |
 | --- | --- |
 | [Accessibility statement](accessibility-statement.md) | Level reached, known limits, planned actions |
+| [Brand](brand/README.md) | Logo, colours, typography, sounds, motion and usage rules |
 | [Credits](CREDITS.md) | External assets and their licences |

@@ -1,23 +1,96 @@
+import { useId } from "react";
+
+interface LogoProps {
+  /** "full" shows the BYOC wordmark, "icon" only the lighthouse Y. */
+  variant?: "full" | "icon";
+  /** Height in pixels. The width follows the logo proportions. */
+  height?: number;
+  /** Accessible name. Pass an empty string when the logo sits next to visible text. */
+  label?: string;
+}
+
 /**
- * Beacon-shaped mark, kept from the original charte as a placeholder.
- * A BYOC-specific logo will be designed in E2-01.
- * Colors from the brand charte: lilas beams, soleil disk.
+ * Byoc logo: the Y is a lighthouse (tower, lamp, two beams).
+ * Colours come from the brand tokens in @byoc/ui (tokens.css).
+ * Below 20 px high, prefer the monochrome icon (see docs/brand).
  */
-export function Logo({ size = 40 }: { size?: number }) {
-  const height = size;
-  const width = (size * 100) / 40;
+export function Logo({ variant = "full", height = 40, label = "BYOC" }: LogoProps) {
+  const id = useId();
+  const tower = `${id}-tower`;
+  const lamp = `${id}-lamp`;
+  const beams = `${id}-beams`;
+  const decorative = label === "";
+  const lighthouse = (
+    <>
+      <defs>
+        <mask id={tower} maskUnits="userSpaceOnUse" x="0" y="0" width="60" height="70">
+          <rect width="60" height="70" fill="#fff" />
+          <polygon points="21.6,48 38.4,48 39.1,55 20.9,55" fill="#000" />
+        </mask>
+        <mask id={lamp} maskUnits="userSpaceOnUse" x="0" y="0" width="60" height="70">
+          <rect width="60" height="70" fill="#fff" />
+          <circle cx="30" cy="28" r="3.6" fill="#000" />
+        </mask>
+        <mask id={beams} maskUnits="userSpaceOnUse" x="-5" y="-5" width="70" height="80">
+          <rect x="-5" y="-5" width="70" height="80" fill="#fff" />
+          <circle cx="30" cy="28" r="9.4" fill="#000" />
+        </mask>
+      </defs>
+      <g mask={`url(#${beams})`} style={{ fill: "var(--byoc-sun)" }}>
+        <polygon points="30,27 0,0 17,0" />
+        <polygon points="30,27 43,0 60,0" />
+      </g>
+      <polygon
+        points="22.5,36 37.5,36 41,70 19,70"
+        mask={`url(#${tower})`}
+        style={{ fill: "var(--byoc-lilac)" }}
+      />
+      <circle cx="30" cy="28" r="9.5" mask={`url(#${lamp})`} style={{ fill: "var(--byoc-sun)" }} />
+    </>
+  );
+
+  if (variant === "icon") {
+    return (
+      <svg
+        viewBox="0 0 60 70"
+        height={height}
+        width={(height * 60) / 70}
+        role={decorative ? undefined : "img"}
+        aria-label={decorative ? undefined : label}
+        aria-hidden={decorative ? true : undefined}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {lighthouse}
+      </svg>
+    );
+  }
+
+  const [, , w, h] = "0 0 2740 820".split(" ").map(Number) as [number, number, number, number];
   return (
     <svg
-      role="img"
-      aria-label="BYOC"
-      width={width}
+      viewBox="0 0 2740 820"
       height={height}
-      viewBox="0 0 100 40"
+      width={(height * w) / h}
+      role={decorative ? undefined : "img"}
+      aria-label={decorative ? undefined : label}
+      aria-hidden={decorative ? true : undefined}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <polygon points="2,20 34,6 34,34" style={{ fill: "var(--lilas)" }} />
-      <polygon points="98,20 66,6 66,34" style={{ fill: "var(--lilas)" }} />
-      <circle cx="50" cy="20" r="12" style={{ fill: "var(--soleil)" }} />
+      <g style={{ fill: "var(--byoc-mist)" }}>
+        <path
+          transform="translate(40.0 780) scale(1 -1)"
+          d="M40 0V660H306Q367 660 414.5 649.0Q462 638 495.5 616.5Q529 595 546.5 563.0Q564 531 564 488Q564 448 547.5 416.0Q531 384 494.5 364.5Q458 345 399 340V331Q500 326 545.5 284.0Q591 242 591 173Q591 115 561.0 77.0Q531 39 473.5 19.5Q416 0 331 0ZM202 130H324Q375 130 403.0 148.5Q431 167 431 201Q431 239 399.5 257.5Q368 276 305 276H202ZM202 386H289Q346 386 376.0 405.0Q406 424 406 461Q406 496 379.0 513.5Q352 531 298 531H202Z"
+        />
+        <path
+          transform="translate(1388.0 780) scale(1 -1)"
+          d="M328 -14Q258 -14 202.0 8.0Q146 30 107.0 73.0Q68 116 47.5 180.0Q27 244 27 327Q27 445 65.5 521.5Q104 598 173.5 636.0Q243 674 334 674Q404 674 459.5 652.5Q515 631 554.0 588.0Q593 545 613.5 480.5Q634 416 634 331Q634 245 612.5 180.0Q591 115 550.5 72.0Q510 29 453.5 7.5Q397 -14 328 -14ZM334 119Q379 119 408.5 141.5Q438 164 452.5 209.5Q467 255 467 324Q467 397 451.5 445.0Q436 493 405.5 517.5Q375 542 329 542Q285 542 255.0 518.5Q225 495 210.0 448.0Q195 401 195 331Q195 278 203.5 238.0Q212 198 229.5 171.5Q247 145 273.0 132.0Q299 119 334 119Z"
+        />
+        <path
+          transform="translate(2069.0 780) scale(1 -1)"
+          d="M341 -14Q257 -14 197.0 13.0Q137 40 99.0 88.0Q61 136 43.5 197.5Q26 259 26 328Q26 399 44.0 462.0Q62 525 99.5 572.5Q137 620 196.0 647.0Q255 674 338 674Q410 674 462.0 653.5Q514 633 545.5 597.5Q577 562 589.0 516.0Q601 470 595 420L446 402Q448 445 435.5 476.0Q423 507 397.5 524.0Q372 541 333 541Q300 541 274.5 528.0Q249 515 231.5 489.0Q214 463 205.0 424.5Q196 386 196 335Q196 269 212.0 220.5Q228 172 261.0 145.5Q294 119 344 119Q390 119 416.5 140.0Q443 161 454.0 198.0Q465 235 461 281L614 268Q619 213 606.5 162.5Q594 112 561.5 72.0Q529 32 474.5 9.0Q420 -14 341 -14Z"
+        />
+      </g>
+      <g transform="translate(710.86 40.00) scale(10.57143)">{lighthouse}</g>
     </svg>
   );
 }

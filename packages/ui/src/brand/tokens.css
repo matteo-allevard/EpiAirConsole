@@ -1,0 +1,48 @@
+/* Byoc design tokens: colours, typography and shape (Night violet theme).
+   Fonts are free (SIL Open Font License) and served by Google Fonts:
+   @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=JetBrains+Mono:wght@500&display=swap");
+   Contrast ratios are measured against Night (dark mode) or Paper (light variant). */
+:root {
+  /* Dark mode: console and controller */
+  --byoc-night: #1b1530; /* main background */
+  --byoc-night-2: #2a2148; /* cards, controller */
+  --byoc-night-3: #3a2f5e; /* borders, hover; never for text */
+  --byoc-sun: #ffd23f; /* primary action, logo · 12.2:1 */
+  --byoc-lilac: #b9a3f0; /* secondary, labels, lighthouse tower · 8.0:1 */
+  --byoc-ember: #ff8a5b; /* occasional accent · 7.6:1 */
+  --byoc-mist: #f5f1ff; /* main text · 15.8:1 */
+  --byoc-mist-2: #a89fc4; /* secondary text · 7.0:1 */
+
+  /* States */
+  --byoc-success: #3ddc97; /* 9.9:1 */
+  --byoc-error: #ff6b7a; /* 6.4:1 */
+  --byoc-info: #7cc4ff; /* 9.4:1 */
+
+  /* Light variant: documents and print */
+  --byoc-paper: #fbf9ff;
+  --byoc-ink: #1b1530; /* 16.8:1 */
+  --byoc-violet: #5b3fc4; /* 6.8:1 */
+  --byoc-dark-sun: #8a6a00; /* readable yellow on light backgrounds · 4.9:1 */
+
+  /* Player colours 1 to 8: always shown with the player number */
+  --byoc-player-1: #ffd23f;
+  --byoc-player-2: #56b4e9;
+  --byoc-player-3: #ff8a5b;
+  --byoc-player-4: #3ddc97;
+  --byoc-player-5: #e77fd9;
+  --byoc-player-6: #f5f1ff;
+  --byoc-player-7: #9b8cff;
+  --byoc-player-8: #f25c78;
+
+  /* Typography */
+  --byoc-font-display:
+    "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif; /* 800 titles, 500 subtitles */
+  --byoc-font-text: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif; /* 400 and 700 */
+  --byoc-font-mono:
+    "JetBrains Mono", ui-monospace, Menlo, monospace; /* room codes, developer mode */
+
+  /* Shape */
+  --byoc-radius-button: 12px;
+  --byoc-radius-card: 20px;
+  --byoc-touch-target: 44px;
+}

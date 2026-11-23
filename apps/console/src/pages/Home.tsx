@@ -34,14 +34,14 @@ export function Home() {
         textAlign: "center",
       }}
     >
-      <Logo size={56} />
+      <Logo height={56} />
 
       <h1 style={{ marginTop: 24, letterSpacing: "0.05em" }}>BYOC</h1>
       <p
         style={{
           fontSize: "var(--size-subtitle)",
           fontWeight: 500,
-          color: "var(--brume-2)",
+          color: "var(--byoc-mist-2)",
           marginTop: 12,
           maxWidth: 700,
         }}
@@ -55,7 +55,7 @@ export function Home() {
             {loading ? "Creating…" : "Create a room"}
           </button>
           {error && (
-            <p role="alert" style={{ marginTop: 24, color: "var(--erreur)", fontSize: 18 }}>
+            <p role="alert" style={{ marginTop: 24, color: "var(--byoc-error)", fontSize: 18 }}>
               {error}
             </p>
           )}
@@ -80,7 +80,7 @@ export function Home() {
 
           <RoomQRCode joinPath={room.joinPath} />
 
-          <p style={{ fontSize: 18, color: "var(--brume-2)" }}>
+          <p style={{ fontSize: 18, color: "var(--byoc-mist-2)" }}>
             Scan the QR code with your phone to join.
           </p>
         </section>

@@ -3,10 +3,10 @@ export function RoomCode({ code }: { code: string }) {
     <div style={{ textAlign: "center" }}>
       <p
         style={{
-          fontFamily: "var(--font-body)",
+          fontFamily: "var(--byoc-font-text)",
           fontSize: "var(--size-subtitle)",
           fontWeight: 500,
-          color: "var(--lilas)",
+          color: "var(--byoc-lilac)",
           marginBottom: 8,
         }}
       >
@@ -15,11 +15,11 @@ export function RoomCode({ code }: { code: string }) {
       <p
         aria-label={`Room code: ${code.split("").join(" ")}`}
         style={{
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--byoc-font-mono)",
           fontWeight: 500,
           fontSize: "var(--size-code)",
           letterSpacing: "0.2em",
-          color: "var(--soleil)",
+          color: "var(--byoc-sun)",
           lineHeight: 1,
         }}
       >
