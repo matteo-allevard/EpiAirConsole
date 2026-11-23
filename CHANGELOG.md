@@ -27,3 +27,5 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 [Unreleased]: https://github.com/matteo-allevard/EpiAirConsole/commits/main
 - Room creation flow (E3-01): the host opens the console, clicks "Create a room", and gets a short non-guessable code plus a QR code. The server supports multiple rooms in parallel with unique 4-character codes.
+
+- Player join flow (E3-02): pseudo + avatar picker, Socket.IO join handshake, 8-player cap, first joiner becomes host, host promotes silently on leave
